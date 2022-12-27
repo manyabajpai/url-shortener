@@ -1,22 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [url, setUrl ] = useState('');
+
+  const handleinputchange = event => {
+    setUrl(event.target.value);
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const response = await fetch('/short', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({url: url }),
+    });
+    const body = await response.text();
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <input value={url} onChange={handleinputchange}></input>
+        <button onClick={handleSubmit}>Generate short url</button>
       </header>
     </div>
   );
