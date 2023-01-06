@@ -52,7 +52,7 @@ app.post('/short', async (req, res) => {
           });
 
           await url.save();
-          res.status(200).json(`${url} is the response and short url is ${shortUrl}`);
+          return res.status(200).json(url);
         }
 
       }catch(err){
