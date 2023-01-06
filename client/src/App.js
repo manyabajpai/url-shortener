@@ -11,14 +11,19 @@ function App() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const response = await fetch('/short', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({url: url }),
-    });
-    const body = await response.text();
+    try{
+      const response = await fetch('/short', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({originalUrl: url }),
+      });
+
+      console.log("Response - ", response);
+    }catch(err) {
+      console.log("Error", err);
+    }
   }
 
   return (
